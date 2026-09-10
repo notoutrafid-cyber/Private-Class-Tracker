@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rafid's Private Class Tracker</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2563eb">
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f1f5f9;
+    color:#1e293b;
+}
+
+body.dark{
+    background:#0f172a;
+    color:white;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:15px;
+}
+
+.header{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    padding:30px 20px;
+    border-radius:20px;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.header h1{
+    margin:0;
+}
+
+.top-buttons{
+    text-align:right;
+    margin-bottom:10px;
+}
+
+.dark-btn{
+    width:auto;
+    background:#334155;
+    color:white;
+}
+
+.info{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.card,
+.form-box,
+.table-box,
+.stat{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+body.dark .card,
+body.dark .form-box,
+body.dark .table-box,
+body.dark .stat{
+    background:#1e293b;
+    color:white;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.stat{
+    text-align:center;
+}
+
+.stat h2{
+    margin:10px 0 0;
+    color:#2563eb;
+}
+
+body.dark .stat h2{
+    color:#60a5fa;
+}
+
+.form-box{
+    margin-bottom:20px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+}
+
+label{
+    font-weight:bold;
+}
+
+input,
+select{
+    width:100%;
+    padding:12px;
+    margin-top:7px;
+    border:1px solid #cbd5e1;
+    border-radius:8px;
+    font-size:16px;
+}
+
+button{
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.add-btn{
+    width:100%;
+    margin-top:20px;
+    background:#2563eb;
+    color:white;
+}
+
+.delete-btn{
+    background:#dc2626;
+    color:white;
+}
+
+.table-box{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+}
+
+th,
+td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+<div class="top-buttons">
+    <button class="dark-btn" onclick="darkMode()">🌙 Dark Mode</button>
+</div>
+
+
+<div class="header">
+
+    <h1>📚 Private Class Tracker</h1>
+
+    <p>HSC 2027 | Rafid & Turjo</p>
+
+</div>
+
+
+<div class="info">
+
+    <div class="card">
+
+        <h2>👨‍🎓 Students</h2>
+
+        <p>Rafid</p>
+        <p>Turjo</p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>👨‍🏫 Himel Sir</h2>
+
+        <p>📘 Mathematics</p>
+        <p>⚛️ Physics</p>
+        <p>💻 ICT</p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>👨‍🏫 Habib Sir</h2>
+
+        <p>🧪 Chemistry</p>
+
+    </div>
+
+</div>
+
+
+<div class="stats">
+
+    <div class="stat">
+
+        <p>Total Classes</p>
+
+        <h2 id="totalClasses">0</h2>
+
+    </div>
+
+
+    <div class="stat">
+
+        <p>Total Study Time</p>
+
+        <h2 id="totalTime">0h 0m</h2>
+
+    </div>
+
+
+    <div class="stat">
+
+        <p>Himel Sir Classes</p>
+
+        <h2 id="himelClasses">0</h2>
+
+    </div>
+
+
+    <div class="stat">
+
+        <p>Habib Sir Classes</p>
+
+        <h2 id="habibClasses">0</h2>
+
+    </div>
+
+</div>
+
+
+<div class="form-box">
+
+<h2>➕ Add New Class</h2>
+
+
+<div class="form-grid">
+
+<div>
+
+<label>Date</label>
+
+<input type="date" id="date">
+
+</div>
+
+
+<div>
+
+<label>Teacher</label>
+
+<select id="teacher" onchange="updateSubjects()">
+
+<option value="Himel Sir">Himel Sir</option>
+
+<option value="Habib Sir">Habib Sir</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Subject</label>
+
+<select id="subject">
+
+<option>Mathematics</option>
+
+<option>Physics</option>
+
+<option>ICT</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Start Time</label>
+
+<input type="time" id="startTime">
+
+</div>
+
+
+<div>
+
+<label>End Time</label>
+
+<input type="time" id="endTime">
+
+</div>
+
+</div>
+
+
+<button class="add-btn" onclick="addClass()">
+
+➕ Add Class
+
+</button>
+
+</div>
+
+
+
+<div class="table-box">
+
+<h2>📋 Class History</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Date</th>
+<th>Day</th>
+<th>Teacher</th>
+<th>Subject</th>
+<th>Time</th>
+<th>Duration</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="classList"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   CLASS DATA
+========================= */
+
+let classes =
+JSON.parse(localStorage.getItem("privateClasses")) || [];
+
+
+/* =========================
+   SUBJECT CHANGE
+========================= */
+
+function updateSubjects(){
+
+    let teacher =
+    document.getElementById("teacher").value;
+
+    let subject =
+    document.getElementById("subject");
+
+    if(teacher === "Himel Sir"){
+
+        subject.innerHTML = `
+        <option>Mathematics</option>
+        <option>Physics</option>
+        <option>ICT</option>
+        `;
+
+    }else{
+
+        subject.innerHTML = `
+        <option>Chemistry</option>
+        `;
+
+    }
+
+}
+
+
+/*
